@@ -24,42 +24,32 @@
        <attribute name="title">
         <string>Данные</string>
        </attribute>
-       <widget class="QListWidget" name="listWidgetRecords">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>50</y>
-          <width>251</width>
-          <height>221</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButtonOpen">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>10</y>
-          <width>83</width>
-          <height>29</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>открыть</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="labelStatus">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>280</y>
-          <width>141</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Файл не загружен</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayoutData">
+        <item>
+         <widget class="QPushButton" name="pushButtonOpen">
+          <property name="text">
+           <string>Открыть...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QListWidget" name="listWidgetRecords">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>1</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelStatus">
+          <property name="text">
+           <string>Файл не загружен</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>

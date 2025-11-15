@@ -12,6 +12,8 @@
 #include <QCoreApplication>
 #include <QListWidgetItem>
 
+#include <QDir>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -24,9 +26,28 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->labelStatus->setText(tr("Файл не загружен"));
 
-    // При запуске пробуем прочитать стандартный файл рядом с .exe
-    const QString defaultPath =
-        QCoreApplication::applicationDirPath() + "/persons.json";
+    // Ищем persons.json в удобных местах
+    QDir appDir(QCoreApplication::applicationDirPath());
+
+    QStringList candidates = {
+        appDir.filePath("persons.json"),        // рядом с .exe
+        appDir.filePath("../persons.json"),     // на уровень выше
+        appDir.filePath("../../persons.json")   // ещё на уровень выше (часто это корень проекта)
+    };
+
+    QString defaultPath;
+
+    for (const QString &path : candidates) {
+        if (QFile::exists(path)) {
+            defaultPath = path;
+            break;
+        }
+    }
+
+    // если нигде не нашли, всё равно используем первый вариант — просто покажем "файл не найден"
+    if (defaultPath.isEmpty())
+        defaultPath = candidates.first();
+
     loadFromFile(defaultPath);
 }
 
@@ -35,7 +56,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// ---------------- СЛОТ "Открыть..." ----------------
+//  СЛОТ "Открыть..."
 
 void MainWindow::onOpenClicked()
 {
@@ -51,7 +72,7 @@ void MainWindow::onOpenClicked()
     loadFromFile(path);
 }
 
-// ---------------- ЗАГРУЗКА ФАЙЛА ----------------
+// ЗАГРУЗКА ФАЙЛА
 
 void MainWindow::loadFromFile(const QString &filePath)
 {
@@ -84,7 +105,7 @@ void MainWindow::loadFromFile(const QString &filePath)
     processRecords(std::move(records));
 }
 
-// ---------------- РАЗБОР JSON ----------------
+// РАЗБОР JSON
 
 bool MainWindow::parseJson(const QByteArray &data,
                            std::vector<PersonRecord> &records,
@@ -149,7 +170,7 @@ bool MainWindow::parseJson(const QByteArray &data,
     return true;
 }
 
-// ---------------- ВЫЧИСЛЕНИЕ ХЕША ----------------
+// ВЫЧИСЛЕНИЕ ХЕША
 
 QString MainWindow::computeHash(const PersonRecord &record,
                                 const QString &previousHash) const
@@ -169,8 +190,7 @@ QString MainWindow::computeHash(const PersonRecord &record,
     return digest.toBase64(); // base64, как требует вариант
 }
 
-// ---------------- ПРОВЕРКА ЦЕПОЧКИ ----------------
-
+// ПРОВЕРКА ЦЕПОЧКИ
 void MainWindow::processRecords(std::vector<PersonRecord> records)
 {
     QString previousHash;
@@ -199,7 +219,7 @@ void MainWindow::processRecords(std::vector<PersonRecord> records)
     displayRecords();
 }
 
-// ---------------- ОТОБРАЖЕНИЕ В СПИСКЕ ----------------
+//  ОТОБРАЖЕНИЕ В СПИСКЕ
 
 void MainWindow::displayRecords()
 {
