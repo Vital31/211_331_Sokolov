@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Кнопка "Открыть..."
+
     connect(ui->pushButtonOpen, &QPushButton::clicked,
             this, &MainWindow::onOpenClicked);
 
@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->labelStatus->setText(tr("Файл не загружен"));
 
-
+    // Ищем persons.json в удобных местах
     QDir appDir(QCoreApplication::applicationDirPath());
 
     QStringList candidates = {
@@ -63,7 +63,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//  СЛОТ "Открыть"
+//  СЛОТ "Открыть..."
 
 void MainWindow::onOpenClicked()
 {
@@ -195,6 +195,7 @@ QString MainWindow::computeHash(const PersonRecord &record,
                                  QCryptographicHash::Sha256);
 
     return digest.toBase64();
+}
 
 // ПРОВЕРКА ЦЕПОЧКИ
 void MainWindow::processRecords(std::vector<PersonRecord> records)
@@ -261,12 +262,14 @@ void MainWindow::displayRecords()
     }
 }
 
+
+// Диалог окно
 void MainWindow::onAddRecordClicked()
 {
     Dialog dialog(this);
 
     if (dialog.exec() != QDialog::Accepted) {
-        return; // пользователь нажал Cancel
+        return;
     }
 
     PersonRecord rec;
@@ -277,11 +280,11 @@ void MainWindow::onAddRecordClicked()
 
     rec.createdAt = QDateTime::currentDateTime().toString(Qt::ISODate);
 
+
     const QString previousHash =
         records_.empty() ? QString() : records_.back().hash;
     rec.hash = computeHash(rec, previousHash);
 
-    // Добавляем запись и пересчитываем цепочку
     std::vector<PersonRecord> newRecords = records_;
     newRecords.push_back(rec);
     processRecords(std::move(newRecords));
