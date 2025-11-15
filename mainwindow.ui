@@ -13,7 +13,58 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tabData">
+       <attribute name="title">
+        <string>Данные</string>
+       </attribute>
+       <widget class="QListWidget" name="listWidgetRecords">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>50</y>
+          <width>251</width>
+          <height>221</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButtonOpen">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>10</y>
+          <width>83</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>открыть</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="labelStatus">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>280</y>
+          <width>141</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Файл не загружен</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
