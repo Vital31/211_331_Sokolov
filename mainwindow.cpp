@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->labelStatus->setText(tr("Файл не загружен"));
 
-    // Ищем persons.json в удобных местах
+
     QDir appDir(QCoreApplication::applicationDirPath());
 
     QStringList candidates = {
@@ -182,7 +182,7 @@ bool MainWindow::parseJson(const QByteArray &data,
 QString MainWindow::computeHash(const PersonRecord &record,
                                 const QString &previousHash) const
 {
-    // Формула: фамилия + имя + паспорт + дата + hash_(i-1)
+
     const QString payload =
         record.surname +
         record.name +
@@ -194,8 +194,7 @@ QString MainWindow::computeHash(const PersonRecord &record,
         QCryptographicHash::hash(payload.toUtf8(),
                                  QCryptographicHash::Sha256);
 
-    return digest.toBase64(); // base64, как требует вариант
-}
+    return digest.toBase64();
 
 // ПРОВЕРКА ЦЕПОЧКИ
 void MainWindow::processRecords(std::vector<PersonRecord> records)

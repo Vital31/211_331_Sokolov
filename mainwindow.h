@@ -10,13 +10,12 @@ QT_END_NAMESPACE
 
 // Одна запись персональных данных
 struct PersonRecord {
-    QString surname;    // Фамилия
-    QString name;       // Имя
-    QString passport;   // Номер паспорта (10 цифр)
-    QString createdAt;  // Дата/время (ISO 8601)
-    QString hash;       // Хеш SHA-256 (base64)
-    bool valid = false; // true, если хеш-цепочка до этой записи целая
-};
+    QString surname;
+    QString name;
+    QString passport;
+    QString createdAt;
+    QString hash;
+    bool valid = false;
 
 class MainWindow : public QMainWindow
 {

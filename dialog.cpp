@@ -10,7 +10,6 @@ Dialog::Dialog(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Привязываем кнопки ОК/Cancel
     connect(ui->buttonBox, &QDialogButtonBox::accepted,
             this, &Dialog::onAccept);
     connect(ui->buttonBox, &QDialogButtonBox::rejected,
