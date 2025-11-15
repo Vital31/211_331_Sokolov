@@ -3,9 +3,9 @@
 
 #include <QDialog>
 
-namespace Ui {
-class Dialog;
-}
+QT_BEGIN_NAMESPACE
+namespace Ui { class Dialog; }
+QT_END_NAMESPACE
 
 class Dialog : public QDialog
 {
@@ -14,6 +14,13 @@ class Dialog : public QDialog
 public:
     explicit Dialog(QWidget *parent = nullptr);
     ~Dialog();
+
+    QString surname() const;
+    QString name() const;
+    QString passport() const;
+
+private slots:
+    void onAccept();
 
 private:
     Ui::Dialog *ui;
