@@ -28,6 +28,7 @@ public:
 
 private slots:
     void onOpenClicked();
+    void onAddRecordClicked();
 
 private:
     void loadFromFile(const QString &filePath);

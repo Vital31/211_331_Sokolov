@@ -14,6 +14,10 @@
 
 #include <QDir>
 
+#include "dialog.h"
+#include <QDateTime>
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -23,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent)
     // Кнопка "Открыть..."
     connect(ui->pushButtonOpen, &QPushButton::clicked,
             this, &MainWindow::onOpenClicked);
+
+    connect(ui->pushButtonAddRecord, &QPushButton::clicked,
+            this, &MainWindow::onAddRecordClicked);
 
     ui->labelStatus->setText(tr("Файл не загружен"));
 
@@ -253,4 +260,31 @@ void MainWindow::displayRecords()
                 .arg(firstInvalidIndex_ + 1)
             );
     }
+}
+
+void MainWindow::onAddRecordClicked()
+{
+    Dialog dialog(this);   // используем твой Dialog
+
+    if (dialog.exec() != QDialog::Accepted) {
+        return; // пользователь нажал Cancel
+    }
+
+    PersonRecord rec;
+    rec.surname  = dialog.surname();
+    rec.name     = dialog.name();
+    rec.passport = dialog.passport();
+
+    // Текущая дата/время генерируется автоматически
+    rec.createdAt = QDateTime::currentDateTime().toString(Qt::ISODate);
+
+    // Хеш считаем по формуле, используя предыдущую запись
+    const QString previousHash =
+        records_.empty() ? QString() : records_.back().hash;
+    rec.hash = computeHash(rec, previousHash);
+
+    // Добавляем запись и пересчитываем цепочку
+    std::vector<PersonRecord> newRecords = records_;
+    newRecords.push_back(rec);
+    processRecords(std::move(newRecords));
 }

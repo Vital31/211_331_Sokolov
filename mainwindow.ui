@@ -33,6 +33,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="pushButtonAddRecord">
+          <property name="text">
+           <string>Добавить запись...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QListWidget" name="listWidgetRecords">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
