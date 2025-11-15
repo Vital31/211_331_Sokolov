@@ -37,9 +37,9 @@ MainWindow::MainWindow(QWidget *parent)
     QDir appDir(QCoreApplication::applicationDirPath());
 
     QStringList candidates = {
-        appDir.filePath("persons.json"),        // рядом с .exe
-        appDir.filePath("../persons.json"),     // на уровень выше
-        appDir.filePath("../../persons.json")   // ещё на уровень выше (часто это корень проекта)
+        appDir.filePath("persons.json"),
+        appDir.filePath("../persons.json"),
+        appDir.filePath("../../persons.json")
     };
 
     QString defaultPath;
@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
         }
     }
 
-    // если нигде не нашли, всё равно используем первый вариант — просто покажем "файл не найден"
+
     if (defaultPath.isEmpty())
         defaultPath = candidates.first();
 
@@ -63,7 +63,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//  СЛОТ "Открыть..."
+//  СЛОТ "Открыть"
 
 void MainWindow::onOpenClicked()
 {
@@ -264,7 +264,7 @@ void MainWindow::displayRecords()
 
 void MainWindow::onAddRecordClicked()
 {
-    Dialog dialog(this);   // используем твой Dialog
+    Dialog dialog(this);
 
     if (dialog.exec() != QDialog::Accepted) {
         return; // пользователь нажал Cancel
@@ -275,10 +275,9 @@ void MainWindow::onAddRecordClicked()
     rec.name     = dialog.name();
     rec.passport = dialog.passport();
 
-    // Текущая дата/время генерируется автоматически
+
     rec.createdAt = QDateTime::currentDateTime().toString(Qt::ISODate);
 
-    // Хеш считаем по формуле, используя предыдущую запись
     const QString previousHash =
         records_.empty() ? QString() : records_.back().hash;
     rec.hash = computeHash(rec, previousHash);
