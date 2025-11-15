@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QString>
 #include <vector>
 
 QT_BEGIN_NAMESPACE
@@ -16,6 +17,7 @@ struct PersonRecord {
     QString createdAt;
     QString hash;
     bool valid = false;
+};
 
 class MainWindow : public QMainWindow
 {
