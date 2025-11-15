@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->labelStatus->setText(tr("Файл не загружен"));
 
-    // При запуске читаем стандартный файл рядом с exe: persons.json
+    // При запуске пробуем прочитать стандартный файл рядом с .exe
     const QString defaultPath =
         QCoreApplication::applicationDirPath() + "/persons.json";
     loadFromFile(defaultPath);
@@ -35,7 +35,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// ---------------------- СЛОТ "Открыть..." ----------------------
+// ---------------- СЛОТ "Открыть..." ----------------
 
 void MainWindow::onOpenClicked()
 {
@@ -51,17 +51,16 @@ void MainWindow::onOpenClicked()
     loadFromFile(path);
 }
 
-// ---------------------- ЗАГРУЗКА ФАЙЛА ----------------------
+// ---------------- ЗАГРУЗКА ФАЙЛА ----------------
 
 void MainWindow::loadFromFile(const QString &filePath)
 {
     QFile file(filePath);
     if (!file.exists()) {
-        // тихо игнорируем, если это стартовая попытка
         if (currentFilePath_.isEmpty()) {
             ui->labelStatus->setText(tr("Файл не найден: %1").arg(filePath));
-            return;
         }
+        return;
     }
 
     if (!file.open(QIODevice::ReadOnly)) {
@@ -85,7 +84,7 @@ void MainWindow::loadFromFile(const QString &filePath)
     processRecords(std::move(records));
 }
 
-// ---------------------- РАЗБОР JSON ----------------------
+// ---------------- РАЗБОР JSON ----------------
 
 bool MainWindow::parseJson(const QByteArray &data,
                            std::vector<PersonRecord> &records,
@@ -150,7 +149,7 @@ bool MainWindow::parseJson(const QByteArray &data,
     return true;
 }
 
-// ---------------------- ВЫЧИСЛЕНИЕ ХЕША ----------------------
+// ---------------- ВЫЧИСЛЕНИЕ ХЕША ----------------
 
 QString MainWindow::computeHash(const PersonRecord &record,
                                 const QString &previousHash) const
@@ -170,7 +169,7 @@ QString MainWindow::computeHash(const PersonRecord &record,
     return digest.toBase64(); // base64, как требует вариант
 }
 
-// ---------------------- ПРОВЕРКА ЦЕПОЧКИ ----------------------
+// ---------------- ПРОВЕРКА ЦЕПОЧКИ ----------------
 
 void MainWindow::processRecords(std::vector<PersonRecord> records)
 {
@@ -200,7 +199,7 @@ void MainWindow::processRecords(std::vector<PersonRecord> records)
     displayRecords();
 }
 
-// ---------------------- ОТОБРАЖЕНИЕ В СПИСКЕ ----------------------
+// ---------------- ОТОБРАЖЕНИЕ В СПИСКЕ ----------------
 
 void MainWindow::displayRecords()
 {
@@ -217,7 +216,7 @@ void MainWindow::displayRecords()
         auto *item = new QListWidgetItem(text, ui->listWidgetRecords);
 
         if (!rec.valid) {
-            // неверная запись и все после неё подсвечены
+            // неправильная и все последующие — красным
             item->setBackground(QColor(255, 204, 204));
         }
     }

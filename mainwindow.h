@@ -15,7 +15,7 @@ struct PersonRecord {
     QString passport;   // Номер паспорта (10 цифр)
     QString createdAt;  // Дата/время (ISO 8601)
     QString hash;       // Хеш SHA-256 (base64)
-    bool valid = false; // Целостность цепочки (true = ок)
+    bool valid = false; // true, если хеш-цепочка до этой записи целая
 };
 
 class MainWindow : public QMainWindow
