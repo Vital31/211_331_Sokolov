@@ -1,0 +1,37 @@
+[
+  {
+    "surname": "Ivanov",
+    "name": "Ivan",
+    "passport": "1234567890",
+    "createdAt": "2025-01-10T10:00:00Z",
+    "hash": "R03HePFvkw7rlZNnrx5Gc14sZcK61S7ZqlXszNtHn70="
+  },
+  {
+    "surname": "Petrov",
+    "name": "Petr",
+    "passport": "2345678901",
+    "createdAt": "2025-01-10T10:05:00Z",
+    "hash": "8iaLaU1rmcy1vvVbmrwmqVWrbNJGEWGo06AKi3Y3tj8="
+  },
+  {
+    "surname": "Sidorov",
+    "name": "Sidr",
+    "passport": "3456789012",
+    "createdAt": "2025-01-10T10:10:00Z",
+    "hash": "9/7raE00oTTPveQjSGejozzeSrQdXLUN5iX+DDWHcNs="
+  },
+  {
+    "surname": "Smirnov",
+    "name": "Sergey",
+    "passport": "4567890123",
+    "createdAt": "2025-01-10T10:15:00Z",
+    "hash": "yVgzlAPlzIO3Wh6StsIn0IDZFMjvNxaN7rLiZzwl9Q4="
+  },
+  {
+    "surname": "Popov",
+    "name": "Pavel",
+    "passport": "5678901234",
+    "createdAt": "2025-01-10T10:20:00Z",
+    "hash": "WH5qFC1OgOKtS9rpdRb2U1KmYA7/M8VWOkeAJcjtELs="
+  }
+]
