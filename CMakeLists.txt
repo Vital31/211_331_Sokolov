@@ -23,6 +23,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(211_331_Sokolov
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        dialog.h dialog.cpp dialog.ui
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET 211_331_Sokolov APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
